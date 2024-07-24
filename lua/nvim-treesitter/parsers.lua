@@ -6,6 +6,7 @@ for ft, lang in pairs {
   javascriptreact = "javascript",
   ecma = "javascript",
   jsx = "javascript",
+  gyp = "python",
   html_tags = "html",
   ["typescript.tsx"] = "tsx",
   ["terraform-vars"] = "terraform",
@@ -32,6 +33,8 @@ for ft, lang in pairs {
   py = "python",
   erl = "erlang",
   typ = "typst",
+  pl = "perl",
+  uxn = "uxntal",
 } do
   ts.language.register(lang, ft)
 end
@@ -84,6 +87,7 @@ list.angular = {
     files = { "src/parser.c", "src/scanner.c" },
     generate_requires_npm = true,
   },
+  filetype = "htmlangular",
   maintainers = { "@dlvandenberg" },
   experimental = true,
 }
@@ -1328,6 +1332,14 @@ list.nasm = {
   maintainers = { "@ObserverOfTime" },
 }
 
+list.nginx = {
+  install_info = {
+    url = "https://github.com/opa-oz/tree-sitter-nginx",
+    files = { "src/parser.c", "src/scanner.c" },
+  },
+  maintainers = { "@opa-oz" },
+}
+
 list.nickel = {
   install_info = {
     url = "https://github.com/nickel-lang/tree-sitter-nickel",
@@ -1548,6 +1560,15 @@ list.pony = {
     files = { "src/parser.c", "src/scanner.c" },
   },
   maintainers = { "@amaanq", "@mfelsche" },
+}
+
+list.powershell = {
+  install_info = {
+    url = "https://github.com/airbus-cert/tree-sitter-powershell",
+    files = { "src/parser.c", "src/scanner.c" },
+  },
+  filetype = "ps1",
+  maintainers = { "@L2jLiga" },
 }
 
 list.printf = {
@@ -2333,6 +2354,14 @@ list.verilog = {
     files = { "src/parser.c" },
   },
   maintainers = { "@zegervdv" },
+}
+
+list.vhdl = {
+  install_info = {
+    url = "https://github.com/jpt13653903/tree-sitter-vhdl",
+    files = { "src/parser.c", "src/scanner.c" },
+  },
+  maintainers = { "@jpt13653903" },
 }
 
 list.vhs = {
