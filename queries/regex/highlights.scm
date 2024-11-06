@@ -21,6 +21,8 @@
 
 (class_character) @constant
 
+(decimal_digits) @number
+
 [
   (control_letter_escape)
   (character_class_escape)
@@ -37,11 +39,14 @@
   "="
   "!"
   "-"
+  (backreference_escape)
+  (lazy)
 ] @operator
 
 [
   (start_assertion)
   (end_assertion)
+  ","
 ] @punctuation.delimiter
 
 (any_character) @variable.builtin

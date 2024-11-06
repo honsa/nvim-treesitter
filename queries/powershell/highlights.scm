@@ -67,7 +67,10 @@
   "enum"
 ] @keyword.type
 
-(class_attribute) @keyword.modifier
+[
+  "data"
+  (class_attribute)
+] @keyword.modifier
 
 [
   "throw"
@@ -87,8 +90,6 @@
   "begin"
   "process"
   "end"
-  ; TODO: not supported by parser yet, can be used to declare constants
-  "data"
 ] @keyword
 
 ; Operators
@@ -143,7 +144,15 @@
 ((variable) @variable.builtin
   (#lua-match? @variable.builtin "^\$env:"))
 
+(data_name
+  (simple_name) @constant)
+
 (comment) @comment @spell
+
+((program
+  .
+  (comment) @keyword.directive)
+  (#lua-match? @keyword.directive "^#!/"))
 
 ; Booleans
 ;---------
@@ -230,8 +239,7 @@
     "System.Management.Automation.PSScriptCmdlet" "Management.Automation.ErrorRecord"
     "System.Management.Automation.ErrorRecord" "Management.Automation.PSCredential"
     "System.Management.Automation.PSCredential" "Management.Automation.PSMethod"
-    "System.Management.Automation.PSMethod")
-  )
+    "System.Management.Automation.PSMethod"))
 
 ; Function definitions
 ;---------------------

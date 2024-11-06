@@ -1,5 +1,6 @@
 local fn = vim.fn
 local utils = require "nvim-treesitter.utils"
+local uv = vim.uv or vim.loop
 
 -- Convert path for cmd.exe on Windows.
 -- This is needed when vim.opt.shellslash is in use.
@@ -292,7 +293,7 @@ function M.select_download_commands(repo, project_name, cache_folder, revision, 
     -- Running `git clone` or `git checkout` while running under Git (such as
     -- editing a `git commit` message) will likely fail to install parsers
     -- (such as 'gitcommit') and can also corrupt the index file of the current
-    -- Git repository. Check for typical git environemnt variables and abort if found.
+    -- Git repository. Check for typical git environment variables and abort if found.
     for _, k in pairs {
       "GIT_ALTERNATE_OBJECT_DIRECTORIES",
       "GIT_CEILING_DIRECTORIES",
@@ -303,10 +304,11 @@ function M.select_download_commands(repo, project_name, cache_folder, revision, 
       "GIT_PREFIX",
       "GIT_WORK_TREE",
     } do
-      if vim.uv.os_getenv(k) then
+      if uv.os_getenv(k) then
         vim.api.nvim_err_writeln(
           string.format(
             "Cannot install %s with git in an active git session. Exit the session and run ':TSInstall %s' manually",
+            project_name,
             project_name
           )
         )

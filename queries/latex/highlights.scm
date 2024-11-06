@@ -36,6 +36,12 @@
 
 (delimiter) @punctuation.delimiter
 
+(math_delimiter
+  left_command: _ @punctuation.delimiter
+  left_delimiter: _ @punctuation.delimiter
+  right_command: _ @punctuation.delimiter
+  right_delimiter: _ @punctuation.delimiter)
+
 [
   "["
   "]"
@@ -67,7 +73,7 @@
 (environment_definition
   command: _ @function.macro @nospell
   name: (curly_group_text
-    (_) @markup.link))
+    (_) @label @nospell))
 
 (theorem_definition
   command: _ @function.macro @nospell
@@ -106,10 +112,11 @@
   command: _ @function.macro @nospell
   keys: (curly_group_text_list) @markup.link @nospell)
 
-(hyperlink
+((hyperlink
   command: _ @function @nospell
   uri: (curly_group_uri
-    (_) @markup.link.url @nospell))
+    (_) @markup.link.url @nospell)) @_hyperlink
+  (#set! @_hyperlink url @markup.link.url))
 
 (glossary_entry_definition
   command: _ @function.macro @nospell
@@ -139,7 +146,7 @@
 (color_reference
   command: _ @function.macro
   name: (curly_group_text
-    (_) @markup.link))
+    (_) @markup.link)?)
 
 ; Sectioning
 (title_declaration
@@ -230,6 +237,14 @@
   arg: (curly_group
     (_) @markup.strong))
   (#any-of? @_name "\\textbf" "\\mathbf"))
+
+(generic_command
+  (command_name) @keyword.conditional
+  (#lua-match? @keyword.conditional "^\\if[a-zA-Z@]+$"))
+
+(generic_command
+  (command_name) @keyword.conditional
+  (#any-of? @keyword.conditional "\\fi" "\\else"))
 
 ; File inclusion commands
 (class_include
